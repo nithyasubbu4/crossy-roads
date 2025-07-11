@@ -89,10 +89,7 @@ This project implements a simplified version of the classic **Frogger** game on 
 ---
 
 ## Demo & Diagrams
-
-Feel free to upload:
-Wiring of Board:
 Block Diagrams: 
-[EE 271.pdf](https://github.com/user-attachments/files/21173961/EE.271.pdf)
-[block diagram.pdf](https://github.com/user-attachments/files/21173973/block.diagram.pdf)
+- [EE 271.pdf](https://github.com/user-attachments/files/21173961/EE.271.pdf)
+- [block diagram.pdf](https://github.com/user-attachments/files/21173973/block.diagram.pdf)
 
