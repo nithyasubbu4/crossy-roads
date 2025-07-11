@@ -1,88 +1,98 @@
-# Crossy Roads/Frogger Game Board
+This project implements a simplified version of the classic **Frogger** game on a **DE1-SoC FPGA**. The player controls a frog trying to cross a road of moving cars. The game is displayed on a 16x16 LED grid, and uses push-buttons for movement.
 
-Game Overview
-Objective: Move the frog from the bottom (row 15) to the top (row 0) without hitting a car.
+---
 
-Controls (KEY buttons on DE1-SoC):
+## Game Overview
 
-KEY0: Right
+- **Objective:** Move the frog from the bottom (row 15) to the top (row 0) without colliding with any cars.
+- **Controls:**
+  - `KEY0`: Right
+  - `KEY1`: Up
+  - `KEY2`: Down
+  - `KEY3`: Left
+- **Victory:** Reaching the top row (`row 0`)
+- **Crash:** Frog overlaps with a car (Red and Green pixels collide)
+- **Feedback:**
+  - `VICTOR` appears on the HEX display when the frog wins
+  - `CRASH` appears when the frog collides with a car
+  - After a short delay, the board resets for a new round
 
-KEY1: Up
+---
 
-KEY2: Down
+## Features
 
-KEY3: Left
+- Random car movement using LFSRs
+- Noise-resistant button inputs with flip-flops
+- FSM-based message display system
+- Real-time collision detection
+- Modular Verilog design for readability and scalability
+- HEX display for event feedback
 
-Win Condition: Reach row 0 without a crash.
+---
 
-Crash Condition: A green (frog) pixel overlaps a red (car) pixel.
+## File Descriptions
 
-Feedback:
+| File | Description |
+|------|-------------|
+| `DE1_SoC.sv` | Top-level module integrating all subsystems |
+| `frogTracker.sv` | Handles frog movement and grid updates |
+| `carMovement.sv` | Controls car lanes with LFSRs |
+| `LFSR.sv` | Linear Feedback Shift Register for randomness |
+| `crashDetection.sv` | Detects collision between frog and cars |
+| `victoryCheck.sv` | Checks if frog has reached the top row |
+| `messageDisplay.sv` | Manages HEX display output (CRASH/VICTOR) |
+| `counter.sv` | Delay timer for display reset |
+| `clock_divider.sv` | Generates slower clock from 50MHz input |
+| `dFlipFlop.sv` | Implements noise-immune button controls |
+| `LEDDriver.sv` | Interfaces with 16x16 external LED matrix |
+| `testbenches/` | Contains simulation files for module testing |
 
-VICTOR on HEX displays = win
+---
 
-CRASH on HEX displays = game over
+## Setup Instructions
 
-Game resets after a short delay.
+1. Clone the repo and open the project in **Quartus Prime**.
+2. Connect the **DE1-SoC** board and program it using the .sof file.
+3. Connect a **16x16 LED Matrix** to the `GPIO_1` header.
+4. Use the pushbuttons to control the frog.
+5. Watch the LED grid and HEX displays to track progress.
 
-Features and Highlights
-- Randomized car movement using LFSRs
-- Debounced, noise-resistant button inputs
-- Real-time crash and victory detection
-- HEX display message system with timer
-- Modular design for clarity and reusability
+---
 
-File Breakdown
-File	Description
-DE1_SoC.sv	Top-level integration of all game modules
-frogTracker.sv	Tracks frog's position and updates green pixels
-carMovement.sv	Controls car positions using LFSRs
-LFSR.sv	Pseudo-random number generator for cars
-crashDetection.sv	Detects overlap between frog and cars
-victoryCheck.sv	Detects when frog reaches row 0
-messageDisplay.sv	Displays VICTOR or CRASH using HEX displays
-counter.sv	Delays game reset after a crash or win
-clock_divider.sv	Generates slow clock for movement timing
-dFlipFlop.sv	Button debouncing and noise immunity
-LEDDriver.sv	Sends grid data to external 16x16 LED board
-testbenches/	Module-level simulations for validation
+## Hardware Requirements
 
-💻 How to Run
-Open the project in Quartus Prime.
+- DE1-SoC FPGA board
+- Quartus Prime Software
+- USB Blaster cable
+- 16x16 LED Matrix (connected to `GPIO_1`)
 
-Compile and upload the design to the DE1-SoC board.
+---
 
-Connect a 16x16 LED grid via GPIO_1.
+## Resource Utilization
 
-Use the buttons to move the frog.
+- **390** Combinational Lookup Tables (LUTs)
+- **211** Logic Registers  
+> Efficient usage, with plenty of room for future expansion.
 
-Watch the LEDs and HEX displays for game feedback.
+---
 
-⚙️ Requirements
-DE1-SoC FPGA development board
+## Skills Demonstrated
 
-Quartus Prime software
+- Verilog HDL programming
+- Finite State Machine (FSM) design
+- Random number generation using LFSRs
+- Button debouncing and edge detection
+- Collision detection logic
+- LED matrix interfacing and timing
+- Modular, resource-conscious hardware design
 
-16x16 LED Matrix (wired to GPIO_1)
+---
 
-USB Blaster cable for programming
+## Demo & Diagrams
 
-🛠 Skills Demonstrated
-Hardware programming with Verilog
+Feel free to upload:
+Wiring of Board:
+Block Diagrams: 
+[EE 271.pdf](https://github.com/user-attachments/files/21173961/EE.271.pdf)
+[block diagram.pdf](https://github.com/user-attachments/files/21173973/block.diagram.pdf)
 
-Finite State Machine (FSM) design
-
-Signal debouncing and flip-flop implementation
-
-LFSR-based randomization
-
-Collision detection and condition logic
-
-Resource-aware modular FPGA design
-
-📊 FPGA Resource Usage
-390 Combinational Lookup Tables (LUTs)
-
-211 Logic Registers
-
-These values reflect a low-to-moderate hardware footprint, leaving room for future features.
