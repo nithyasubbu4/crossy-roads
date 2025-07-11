@@ -1,4 +1,4 @@
-This project implements a simplified version of the classic **Frogger** game on a **DE1-SoC FPGA**. The player controls a frog trying to cross a road of moving cars. The game is displayed on a 16x16 LED grid, and uses push-buttons for movement.
+This project implements a simplified version of the classic **Frogger** game, similar to the mobile app game called crossy roads, on a **DE1-SoC FPGA**. The player controls a frog trying to cross a road of moving cars. The game is displayed on a 16x16 LED grid, and uses push-buttons for movement.
 
 ---
 
